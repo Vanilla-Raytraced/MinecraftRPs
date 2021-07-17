@@ -12,16 +12,19 @@ jobs:
       matrix:
         include:
           - url: 'https://aka.ms/MinecraftBetaResources'
-            branch: 'beta'
+            branch: beta
             message: 'Beta resource pack update'
           - url: 'https://aka.ms/resourcepacktemplate'
-            branch: 'stable'
+            branch: stable
             message: 'Resource pack update'
     name: ${{ matrix.message }}
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: ${{ matrix.branch }}
       - name: Download the ressource pack
         run: |
+          git rm -rf .
           wget -q -O tmp.zip ${{ matrix.url }}
           unzip tmp.zip
           rm tmp.zip
