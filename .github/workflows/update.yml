@@ -6,7 +6,7 @@ on:
     - cron:  '0 0 * * *'
 
 jobs:
-  beta:
+  update:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -17,10 +17,14 @@ jobs:
           - url: 'https://aka.ms/resourcepacktemplate'
             branch: 'stable'
             message: 'Resource pack update'
+    name: ${{ matrix.message }}
     steps:
       - uses: actions/checkout@v2
       - name: Download the ressource pack
-        run: curl ${{ matrix.url }} | jar xv
+        run: |
+          wget -q -O tmp.zip ${{ matrix.url }}
+          unzip tmp.zip
+          rm tmp.zip
       - name: Push
         uses: EndBug/add-and-commit@v7
         with:
