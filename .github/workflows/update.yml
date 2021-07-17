@@ -1,0 +1,29 @@
+name: Auto-Update
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 0 * * *'
+
+jobs:
+  beta:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - url: 'https://aka.ms/MinecraftBetaResources'
+            branch: 'beta'
+            message: 'Beta resource pack update'
+          - url: 'https://aka.ms/resourcepacktemplate'
+            branch: 'stable'
+            message: 'Resource pack update'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download the ressource pack
+        run: curl ${{ matrix.url }} | jar xv
+      - name: Push
+        uses: EndBug/add-and-commit@v7
+        with:
+          author_name: Minecraft Bot
+          branch: ${{ matrix.branch }}
+          message: ${{ matrix.message }}
