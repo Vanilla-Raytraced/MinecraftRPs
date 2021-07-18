@@ -42,3 +42,4 @@ jobs:
           default_author: github_actions
           branch: ${{ matrix.branch }}
           message: ${{ matrix.message }}
+          push: origin ${{ matrix.branch }} --force
