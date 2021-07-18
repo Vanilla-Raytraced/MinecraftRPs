@@ -26,7 +26,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Create the branch
-        if: ${{ git rev-parse --quiet --verify ${{ matrix.branch }} > /dev/null }}
+        if: git rev-parse --quiet --verify ${{ matrix.branch }} > /dev/null
         run: git switch --orphan ${{ matrix.branch }}
       - name: Download the pack
         run: |
