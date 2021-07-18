@@ -25,12 +25,13 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - name: Clear the branch
+        run: git rm -rf .
       - name: Create the branch
         if: git rev-parse --quiet --verify ${{ matrix.branch }} > /dev/null
         run: git switch --orphan ${{ matrix.branch }}
       - name: Download the pack
         run: |
-          git rm -rf .
           wget -q -O tmp.zip ${{ matrix.url }}
           unzip tmp.zip
           rm tmp.zip
