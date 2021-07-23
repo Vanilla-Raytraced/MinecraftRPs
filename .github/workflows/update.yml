@@ -29,9 +29,11 @@ jobs:
         run: |
           if git rev-parse --quiet --verify ${{ matrix.branch }} > /dev/null; then
             git switch --orphan ${{ matrix.branch }}
+            echo Created an orphan branch named ${{ matrix.branch }}
           else
             git checkout ${{ matrix.branch }}
             git rm -rf .
+            echo Switched to ${{ matrix.branch }}
           fi 
       - name: Download the pack
         run: |
