@@ -68,7 +68,7 @@
           "update_interval_base": 60,
           "update_interval_variant": 40,
           "can_find_poi": false,
-          "can_migrate": false,
+          "can_migrate": true,
           "first_founding_reward": 0
         },
         "minecraft:behavior.move_to_village": {
@@ -85,6 +85,9 @@
           "range": 8.0,
           "event_name": "ambient.in.raid"
         }
+      },
+      "minecraft:raid_persistence": {
+        "minecraft:persistent": {}
       },
       "minecraft:hostile": {
         "minecraft:movement": {
@@ -150,6 +153,11 @@
                     "subject": "other",
                     "test": "is_family",
                     "value": "irongolem"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "wandering_trader"
                   }
                 ]
               },
@@ -275,7 +283,7 @@
         "table": "loot_tables/entities/ravager.json"
       },
       "minecraft:knockback_resistance": {
-        "value": 0.5
+        "value": 0.75
       },
       "minecraft:movement": {
         "value": 0.0
@@ -369,7 +377,8 @@
         "add": {
           "component_groups": [
             "minecraft:hostile",
-            "minecraft:raid_configuration"
+            "minecraft:raid_configuration",
+            "minecraft:raid_persistence"
           ]
         }
       },
@@ -378,7 +387,8 @@
           "component_groups": [
             "minecraft:hostile",
             "minecraft:evoker_rider_for_raid",
-            "minecraft:raid_configuration"
+            "minecraft:raid_configuration",
+            "minecraft:raid_persistence"
           ]
         }
       },
@@ -387,7 +397,8 @@
           "component_groups": [
             "minecraft:hostile",
             "minecraft:pillager_rider_for_raid",
-            "minecraft:raid_configuration"
+            "minecraft:raid_configuration",
+            "minecraft:raid_persistence"
           ]
         }
       },
@@ -460,10 +471,26 @@
         }
       },
       "minecraft:start_celebrating": { // Event must be called exactly this for village to fire it when a raid is lost
-        "add": { "component_groups": [ "minecraft:celebrate" ] }
+        "sequence": [
+          {
+            "add": { "component_groups": [ "minecraft:celebrate" ] }
+          },
+          {
+            "filters": { "test": "has_nametag", "value": false },
+            "remove": { "component_groups": [ "minecraft:raid_persistence" ] }
+          }
+        ]
       },
       "minecraft:stop_celebrating": {
         "remove": { "component_groups": [ "minecraft:celebrate" ] }
+      },
+      "minecraft:raid_expired": {
+        "sequence": [
+          {
+            "filters": { "test": "has_nametag", "value": false },
+            "remove": { "component_groups": [ "minecraft:raid_persistence" ] }
+          }
+        ]
       }
     }
   }
