@@ -117,8 +117,7 @@
     "size": [ "100%", "default" ],
     "layer": 1,
     "anchor_to": "top_left",
-    "anchor_from": "top_left",
-    "ttsSectionContainer": true
+    "anchor_from": "top_left"
   },
 
   //---------------------------------------------------------------------------
@@ -492,6 +491,12 @@
   "import_icon": {
     "type": "image",
     "texture": "textures/ui/import",
+    "size": [ 16, 16 ]
+  },
+
+  "upload_icon": {
+    "type": "image",
+    "texture": "textures/ui/upload_glyph",
     "size": [ 16, 16 ]
   },
 
@@ -1671,6 +1676,7 @@
     "controls": [
       {
         "additional_server_toggle_base@play.server_toggle_base": {
+          "$focus_override_right": "edit_server",
           "size": [ "fill", "100% + 1px" ],
           "layer": 1,
           "$button_content": "play.additional_server_toggle_content",
@@ -1679,6 +1685,7 @@
       },
       {
         "network_server_world_edit_button@play.network_server_world_edit_button": {
+          "$focus_id": "edit_server",
           "$focus_override_right": "right_side",
           "ignored": "$ignore_add_servers",
           "layer": 1
@@ -2552,7 +2559,7 @@
         }
       },
       {
-        "nagivation_panel": {
+        "navigation_panel": {
           "type": "stack_panel",
           "orientation": "horizontal",
           "size": [ "100%", 15 ],
@@ -3883,16 +3890,6 @@
         "from_button_id": "button.menu_ok",
         "to_button_id": "$pressed_button_name",
         "mapping_type": "focused"
-      },
-      {
-        "from_button_id": "button.controller_secondary_select",
-        "to_button_id": "button.upload_legacy_world",
-        "mapping_type": "focused"
-      },
-      {
-        "from_button_id": "button.menu_secondary_select",
-        "to_button_id": "button.upload_legacy_world",
-        "mapping_type": "focused"
       }
     ],
     "bindings": [
@@ -3932,6 +3929,46 @@
     ]
   },
 
+  "cloud_upload_button@common_buttons.dark_glyph_button": {
+    "size": [ "100%y - 1px", "100%" ],
+    "$pressed_button_name": "button.cloud_upload",
+    "$button_content": "play.upload_icon",
+    "$button_tts_header": "accessibility.play.uploadWorld",
+    "layer": 2,
+    "bindings": [
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "local_worlds"
+      }
+    ]
+  },
+
+  "cloud_upload_and_edit_world_stack_panel": {
+    "size": [ "100%c - 2px", "100%" ],
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "controls": [
+      {
+        "cloud@play.cloud_upload_button": {
+          "visible": false,
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "local_worlds"
+            },
+            {
+              "binding_name": "#cloud_upload_enabled",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "edit@play.local_world_edit_button": {}
+      }
+    ]
+  },
+
   "legacy_world_delete_button@common_buttons.dark_glyph_button": {
     "size": [ "100%y - 1px", "100%" ],
     "$pressed_button_name": "button.menu_legacy_world_item_delete",
@@ -3962,7 +3999,7 @@
           "anchor_from": "top_left",
           "anchor_to": "top_left",
           "$primary_header_button": "play.local_world_item_button",
-          "$secondary_header_button": "play.local_world_edit_button",
+          "$secondary_header_button": "play.cloud_upload_and_edit_world_stack_panel",
           "$secondary_visible": "$local_world_edit_button_visible"
         }
       }
@@ -4201,7 +4238,7 @@
   },
 
   "add_server_toggle_button@common_toggles.light_text_toggle": {
-    "visible": "(not $is_console)",
+    "visible": "(not $ignore_add_servers)",
     "size": [ "100%", 20 ],
     "anchor_from": "top_left",
     "anchor_to": "top_left",
@@ -4352,7 +4389,8 @@
   "sync_legacy_worlds_button@common_buttons.light_text_button": {
     "layer": 2,
     "$pressed_button_name": "button.menu_sync_legacy_worlds",
-    "$button_text": "playscreen.syncLegacyWorlds",
+    "$button_text": "#sync_legacy_button_text",
+    "$button_text_binding_type": "global",
 
     "bindings": [
       {
@@ -4425,7 +4463,7 @@
         "buttons": {
           "type": "stack_panel",
           "orientation": "horizontal",
-          "size": [ "100%", "100%" ],
+          "size": [ "100% - 1px", "100%" ],
           "$secondary_visible|default": true,
           "controls": [
             {
@@ -4435,7 +4473,7 @@
                 "controls": [
                   {
                     "primary@$primary_header_button": {
-                      "size": [ "100% + 1px", "100%" ],
+                      "size": [ "100% - 1px", "100%" ],
                       "anchor_from": "top_left",
                       "anchor_to": "top_left",
                       "layer": 1
@@ -5009,7 +5047,7 @@
       },
       {
         "upgrade_legacy_worlds_label@play.world_list_label_with_color_panel": {
-          "$label_text": "playscreen.upgradeLegacyWorlds",
+          "$label_text": "#upgrade_legacy_text",
           "$square_color": "$world_diskspace_editions_fill",
           "variables": [
             {
@@ -5027,7 +5065,7 @@
       },
       {
         "legacy_world_item_grid@play.legacy_world_item_grid": {
-          "$tts_section_header": "playscreen.upgradeLegacyWorlds",
+          "$tts_section_header": "#upgrade_legacy_text",
           "variables": [
             {
               "requires": "$pre_release",
@@ -5050,7 +5088,7 @@
       },
       {
         "beta_retail_legacy_worlds_label@play.world_list_label_panel": {
-          "$label_text": "playscreen.upgradeLegacyWorlds",
+          "$label_text": "#upgrade_legacy_text",
           "bindings": [
             {
               "binding_name": "#beta_retail_legacy_worlds_visible",
@@ -5061,7 +5099,7 @@
       },
       {
         "beta_retail_legacy_grid@play.beta_retail_legacy_world_item_grid": {
-          "$tts_section_header": "playscreen.upgradeLegacyWorlds"
+          "$tts_section_header": "#upgrade_legacy_text"
         }
       },
       {
@@ -5093,7 +5131,30 @@
                 "$label_offset": [ 1, 0 ],
                 "$label_content_label": "localWorld.no_local_worlds_present",
                 "$label_content_content": "play.storage_location_dropdown_panel",
-                "$information_panel_label_text": "localWorld.no_local_worlds_present"
+                "$information_panel_label_text": "localWorld.no_local_worlds_present",
+                "bindings": [
+                  {
+                    "binding_name": "#no_local_world_switch_visible",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "no_local_worlds_get_help@play.label_content_template": {
+                "size": [ "100% - 6px", "100%c + 1px" ],
+                "offset": [ 0, 2 ],
+                "$label_offset": [ 1, 0 ],
+                "$label_content_label": "#no_local_worlds_help_label",
+                "$label_content_label_binding_type": "global",
+                "$label_content_content": "play.no_local_worlds_launch_help",
+                "$information_panel_label_text": "#no_local_worlds_help_label",
+                "bindings": [
+                  {
+                    "binding_name": "#no_local_world_help_visible",
+                    "binding_name_override": "#visible"
+                  }
+                ]
               }
             }
           ]
@@ -5106,6 +5167,13 @@
         "binding_name_override": "#visible"
       }
     ]
+  },
+
+  "no_local_worlds_launch_help@common_buttons.light_text_button": {
+    "$pressed_button_name": "button.no_local_worlds_launch_help",
+    "$button_text": "#no_local_worlds_launch_help_button_label",
+    "$button_text_binding_type": "global",
+    "size": [ "100%", 29 ]
   },
 
   "storage_location_dropdown_panel": {
@@ -5280,7 +5348,16 @@
           "color": "$main_header_text_color",
           "size": [ "fill", "100%" ],
           "offset": [ 1, 0 ],
-          "text": "$label_text"
+          "$label_text|default": "b",
+          "text": "$label_text",
+          "$label_binding_type|default": "none",
+          "bindings": [
+            {
+              "binding_type": "$label_binding_type",
+              "binding_name": "$label_text",
+              "binding_name_override": "$label_text"
+            }
+          ]
         }
       }
     ]
@@ -5923,10 +6000,10 @@
     "anchor_to": "top_left",
     "focus_container": true,
     "use_last_focus": true,
-    "focus_nagivation_mode_down": "contained",
-    "focus_nagivation_mode_up": "contained",
-    "focus_nagivation_mode_right": "contained",
-    "focus_nagivation_mode_left": "contained"
+    "focus_navigation_mode_down": "contained",
+    "focus_navigation_mode_up": "contained",
+    "focus_navigation_mode_right": "contained",
+    "focus_navigation_mode_left": "contained"
   },
 
   "scrolling_offsets@play.common_scrolling_panel": {
@@ -6112,7 +6189,7 @@
                   {
                     "label_panel_layout": {
                       "type": "panel",
-                      "size": [ "100%", "100%c + 8px" ],
+                      "size": [ "97%", "100%c + 8px" ],
                       "controls": [
                         {
                           "label": {
@@ -6121,7 +6198,6 @@
                             "font_type": "smooth",
                             "color": "$dark_button_default_text_color",
                             "size": [ "100%", "default" ],
-                            "text_alignment": "center",
                             "layer": 1,
                             "shadow": false,
                             "text": "#feature_server_message_text",
@@ -6513,7 +6589,6 @@
       },
       {
         "x_image@common.light_close_button": {
-          "ignored": "$game_pad",
           "layer": 1,
           "offset": [ 0, -1 ],
           "anchor_from": "center",
@@ -6521,7 +6596,13 @@
           "focus_identifier": "close_button",
           "focus_change_left": "FOCUS_OVERRIDE_STOP",
           "focus_change_up": "FOCUS_OVERRIDE_STOP",
-          "focus_change_right": "FOCUS_OVERRIDE_STOP"
+          "focus_change_right": "FOCUS_OVERRIDE_STOP",
+          "bindings": [
+            {
+              "binding_name": "(not #exit_button_visible)",
+              "binding_name_override": "#visible"
+            }
+          ]
         }
       }
     ]
