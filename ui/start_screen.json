@@ -1,4 +1,4 @@
-﻿{
+{
   "namespace": "start",
 
   "achievements_icon": {
@@ -13,6 +13,22 @@
     "texture": "textures/ui/Feedback",
     "layer": 3,
     "size": [ 16, 16 ]
+  },
+
+  "feedback_icon_edu": {
+    "type": "image",
+    "texture": "$feedback_texture",
+    "offset": [ -0.5, -0.5 ],
+    "size": [ 16, 16 ],
+    "layer": 3,
+
+    "$feedback_texture": "textures/ui/feedback",
+    "variables": [
+      {
+        "requires": "($hover_state or $pressed_state)",
+        "$feedback_texture": "textures/ui/feedback_hover"
+      }
+    ]
   },
 
   "Xbox_icon": {
@@ -164,8 +180,7 @@
     "$button_content": "start.change_skin_icon",
     "$pressed_alpha": 0.65,
     "$focus_id": "menu_skins_button",
-    "$button_tts_header": "accessibility.start.skinPicker",
-    "tts_index_order": 4
+    "$button_tts_header": "accessibility.start.skinPicker"
   },
 
   "profile_button@common_buttons.light_text_form_fitting_button": {
@@ -178,8 +193,7 @@
     "$button_text": "profileScreen.header",
     "$focus_id": "profile_button",
     "$pressed_alpha": 0.65,
-    "$button_tts_header": "accessibility.start.profile",
-    "tts_index_order": 20
+    "$button_tts_header": "accessibility.start.profile"
   },
 
   "skin_viewer_panel": {
@@ -286,13 +300,178 @@
     ]
   },
 
+  //--------------------------------------------------------------------------
+  // Gatherings
+  //--------------------------------------------------------------------------
+
+  "gathering_button@common_buttons.light_text_button": {
+    "anchor_to": "bottom_left",
+    "anchor_from": "bottom_left",
+    "$pressed_button_name": "button.gathering",
+    "$button_text": "#gathering_button_text",
+    "$button_text_binding_type": "global",
+    "$button_text_size": [ "100%", "100%" ],
+    "$focus_override_right": "play_button",
+    "size": [ 80, 25 ],
+    "bindings": [
+      {
+        "binding_name": "#gathering_button_enabled",
+        "binding_name_override": "#enabled"
+      }
+    ]
+  },
+
+  "gathering_badge": {
+    "type": "image",
+    "size": [ 30, 20 ],
+    "anchor_to": "bottom_left",
+    "anchor_from": "bottom_left",
+    "layer": 20,
+    "bindings": [
+      {
+        "binding_name": "#gathering_badge",
+        "binding_name_override": "#texture"
+      },
+      {
+        "binding_name": "#gathering_badge_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "badge_and_caption": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c" ],
+    "anchor_to": "bottom_middle",
+    "anchor_from": "bottom_middle",
+    "offset": [ -4, -20 ],
+    "controls": [
+      {
+        "caption_and_padding": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100%", "100%c" ],
+          "layer": 14,
+          "controls": [
+            {
+              "pad@common.empty_panel": {
+                "size": [ 4, -2 ]
+              }
+            },
+            {
+              "caption@start.gathering_caption": {}
+            }
+          ]
+        }
+      },
+      {
+        "badge_and_padding": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100%", 20 ],
+          "controls": [
+            {
+              "badge@start.gathering_badge": {}
+            },
+            {
+              "fill@common.empty_panel": {
+                "size": [ "fill", "100%" ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "gathering_caption": {
+    "type": "image",
+    "size": [ "100%c", "100%c + 14px" ],
+    "anchor_to": "bottom_middle",
+    "anchor_from": "bottom_middle",
+    "layer": 9,
+    "$gathering_caption_foreground_color|default": "$0_color_format",
+    "$gathering_caption_background_color|default": "$f_color_format",
+    "color": "$gathering_caption_background_color",
+    "texture": "textures/ui/newOffersIcon",
+    "keep_ratio": false,
+    "controls": [
+      {
+        "countdown_text": {
+          "type": "label",
+          "text": "#text",
+          "font_scale_factor": 0.9,
+          "offset": [ 0, -2 ],
+          "size": [ 100, "default" ],
+          "text_alignment": "center",
+          "layer": 10,
+          "color": "$gathering_caption_foreground_color",
+          "bindings": [
+            {
+              "binding_name": "#gathering_countdown_text",
+              "binding_name_override": "#text",
+              "binding_condition": "always_when_visible"
+            },
+            {
+              "binding_name": "#gathering_caption_foreground_color",
+              "binding_name_override": "#color"
+            }
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#gathering_caption_background_color",
+        "binding_name_override": "#color"
+      }
+    ]
+  },
+
+  "gathering_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", 60 ],
+    "controls": [
+      {
+        "pad@common.empty_panel": {
+          "size": [ 5, "100%" ]
+        }
+      },
+      {
+        "inner_panel": {
+          "type": "panel",
+          "anchor_to": "bottom_left",
+          "anchor_from": "bottom_left",
+          "size": [ "100% - 5px", 60 ],
+          "controls": [
+            {
+              "badge_and_caption@start.badge_and_caption": {}
+            },
+            {
+              "gathering_button@start.gathering_button": {}
+            }
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#gathering_enabled",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
   //---------------------------------------------------------------------------
   // Online Buttons Panel (and the lang button)
   //---------------------------------------------------------------------------
 
   "edu_feedback_button@common_buttons.light_content_button": {
-    "size": [ 24, 24 ],
-    "$button_content": "start.feedback_icon",
+    "size": [ 25, 25 ],
+    "$button_pressed_offset": [ 0, 0 ],
+    "$button_content": "start.feedback_icon_edu",
     "$pressed_button_name": "button.edu_feedback"
   },
 
@@ -345,7 +524,6 @@
     "$button_text_max_size": [ 80, 10 ], // longest localized string length will fit in this
     "$button_text": "xbox.signin",
     "$focus_id": "menu_xbox_signin_button",
-    "tts_index_order": 10,
     "anchor_from": "left_middle",
     "anchor_to": "left_middle"
   },
@@ -356,7 +534,6 @@
     "$focus_id": "menu_xbox_signin_button",
     "$button_text": "#platform_signin_text",
     "$button_text_binding_type": "global",
-    "tts_index_order": 10,
     "anchor_from": "left_middle",
     "anchor_to": "left_middle",
     "bindings": [
@@ -377,10 +554,7 @@
 
   "upper_online_buttons_panel": {
     "type": "stack_panel",
-    "anchor_to": "bottom_left",
-    "anchor_from": "bottom_left",
-    "size": [ "50% - 75px", "100%c" ],
-    "offset": [ 0, "-23%" ],
+    "size": [ "100%", "100%c" ],
     "controls": [
       {
         "stacked_column": {
@@ -520,7 +694,7 @@
     ],
     "bindings": [
       {
-        "binding_name": "#online_buttons_visible",
+        "binding_name": "#upper_online_buttons_visible",
         "binding_name_override": "#visible"
       }
     ]
@@ -530,8 +704,7 @@
     "type": "stack_panel",
     "anchor_to": "bottom_left",
     "anchor_from": "bottom_left",
-    "size": [ "50% - 75px", "100%c" ],
-    "offset": [ 0, "-10%" ],
+    "size": [ "100%", "100%c" ],
     "controls": [
       {
         "stacked_column": {
@@ -546,7 +719,7 @@
               "feedback_padding": {
                 "ignored": "$feedback_ignored",
                 "type": "panel",
-                "size": [ "5%", 0 ],
+                "size": [ 3, "100%" ],
                 "bindings": [
                   {
                     "binding_name": "#feedback_visible",
@@ -592,7 +765,7 @@
               "achievements_padding": {
                 "ignored": "$achievements_ignored",
                 "type": "panel",
-                "size": [ 3, 0 ],
+                "size": [ 3, "100%" ],
                 "bindings": [
                   {
                     "binding_name": "#achievements_icon_visible",
@@ -619,7 +792,7 @@
             {
               "invite_padding": {
                 "type": "panel",
-                "size": [ 3, 0 ],
+                "size": [ 3, "100%" ],
                 "bindings": [
                   {
                     "binding_name": "#realms_notification_visible",
@@ -639,12 +812,6 @@
           ]
         }
       }
-    ],
-    "bindings": [
-      {
-        "binding_name": "#online_buttons_visible",
-        "binding_name_override": "#visible"
-      }
     ]
   },
 
@@ -663,13 +830,6 @@
   "play_button@start.main_button": {
     "$pressed_button_name": "$play_button_target",
     "$button_text": "menu.play",
-    "$focus_override_right": "profile_button",
-    "tts_index_order": 1
-  },
-
-  "toolbox_mode_button@start.main_button": {
-    "$pressed_button_name": "button.toolbox_mode",
-    "$button_text": "menu.toolboxMode",
     "$focus_override_right": "profile_button"
   },
 
@@ -691,8 +851,7 @@
   "switch_accounts_button@start.main_button": {
     "$pressed_button_name": "button.switch_accounts",
     "$button_text": "#switch_accounts_button_text",
-    "$button_text_binding_type": "global",
-    "tts_index_order": 3
+    "$button_text_binding_type": "global"
   },
 
   "launch_editions_button@start.main_button": {
@@ -815,10 +974,10 @@
     "controls": [
       {
         "store_button@start.store_button": {
-          "enabled": "(not $store_disabled)",
+          "enabled": "(not $store_disabled and not ($is_ios and $pre_release)))",
           "bindings": [
             {
-              "binding_name": "(not #has_marketplace_errors)",
+              "binding_name": "(not #marketplace_disabled)",
               "binding_name_override": "#visible"
             }
           ]
@@ -877,7 +1036,7 @@
           "$tooltip_panel_content": "start.store_error_content",
           "bindings": [
             {
-              "binding_name": "#has_marketplace_errors",
+              "binding_name": "#marketplace_disabled",
               "binding_name_override": "#visible"
             }
           ]
@@ -890,7 +1049,7 @@
           "offset": [ -2, 0 ],
           "bindings": [
             {
-              "binding_name": "#has_marketplace_errors",
+              "binding_name": "#marketplace_disabled",
               "binding_name_override": "#visible"
             }
           ]
@@ -990,20 +1149,6 @@
               }
             },
             {
-              "stacked_row_toolbox@start.stacked_row": {
-                "ignored": "$is_toolbox_ignored",
-                "controls": [
-                  { "toolbox_mode_button@start.toolbox_mode_button": {} }
-                ],
-                "bindings": [
-                  {
-                    "binding_name": "#toolbox_button_visible",
-                    "binding_name_override": "#visible"
-                  }
-                ]
-              }
-            },
-            {
               "course@start.stacked_row": {
                 "ignored": "$courses_ignored",
                 "controls": [
@@ -1046,7 +1191,13 @@
                             "controls": [
                               {
                                 "store_button@start.store_button": {
-                                  "enabled": "(not $store_disabled)"
+                                  "enabled": "(not $store_disabled)",
+                                  "bindings": [
+                                    {
+                                      "binding_name": "(not #marketplace_disabled)",
+                                      "binding_name_override": "#visible"
+                                    }
+                                  ]
                                 }
                               },
                               {
@@ -1465,7 +1616,6 @@
     "$achievements_ignored|default": false,
     "$feedback_ignored|default": false,
     "$store_ignored|default": false,
-    "$is_toolbox_ignored|default": false,
     "variables": [
       {
         "requires": "$education_edition",
@@ -1492,10 +1642,6 @@
       {
         "requires": "$trial",
         "$achievements_ignored": true
-      },
-      {
-        "requires": "(not $is_desktop or $is_publish)",
-        "$is_toolbox_ignored": true
       }
     ],
     "bindings": [
@@ -1506,16 +1652,31 @@
     ],
     "controls": [
       {
-        "skin_panel@start.skin_panel": { "layer": 1 }
-      },
-      {
         "main_buttons_and_title_panel@start.main_buttons_stack_panel": {}
       },
       {
-        "upper_online_buttons_panel@start.upper_online_buttons_panel": {}
+        "online_button_stack": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "anchor_to": "bottom_left",
+          "anchor_from": "bottom_left",
+          "size": [ "50% - 75px", "100%c" ],
+          "offset": [ 0, "-10%" ],
+          "controls": [
+            {
+              "gathering_panel@start.gathering_panel": {}
+            },
+            {
+              "upper_online_buttons_panel@start.upper_online_buttons_panel": {}
+            },
+            {
+              "lower_online_buttons_panel@start.lower_online_buttons_panel": {}
+            }
+          ]
+        }
       },
       {
-        "lower_online_buttons_panel@start.lower_online_buttons_panel": {}
+        "skin_panel@start.skin_panel": { "layer": 1 }
       },
       {
         "text_panel@start.text_panel": {}

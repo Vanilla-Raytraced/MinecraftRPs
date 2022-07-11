@@ -44,7 +44,7 @@
       "animations": {
         "root": "controller.animation.player.root",
         "base_controller": "controller.animation.player.base",
-        "hudplayer":  "controller.animation.player.hudplayer",
+        "hudplayer": "controller.animation.player.hudplayer",
         "humanoid_base_pose": "animation.humanoid.base_pose",
         "look_at_target": "controller.animation.humanoid.look_at_target",
         "look_at_target_ui": "animation.player.look_at_target.ui",
@@ -75,6 +75,7 @@
         "first_person_base_pose": "animation.player.first_person.base_pose",
         "first_person_empty_hand": "animation.player.first_person.empty_hand",
         "first_person_swap_item": "animation.player.first_person.swap_item",
+        "first_person_shield_block": "animation.player.first_person.shield_block",
         "first_person_attack_controller": "controller.animation.player.first_person_attack",
         "first_person_attack_rotation": "animation.player.first_person.attack_rotation",
         "first_person_vr_attack_rotation": "animation.player.first_person.vr_attack_rotation",
@@ -91,7 +92,8 @@
         "crossbow_controller": "controller.animation.player.crossbow",
         "shield_block_main_hand": "animation.player.shield_block_main_hand",
         "shield_block_off_hand": "animation.player.shield_block_off_hand",
-        "blink": "controller.animation.persona.blink"
+        "blink": "controller.animation.persona.blink",
+		"tooting_goat_horn": "animation.humanoid.tooting_goat_horn"
       },
       "render_controllers": [
         { "controller.render.player.first_person": "variable.is_first_person" },

@@ -334,7 +334,7 @@
 
     "$enable_focus_id_bind|default": false,
     "$focus_id_binding_name|default": "",
-    
+
     "$enable_focus_enabled_bind|default": false,
     "$focus_enabled_binding_name|default": "",
 
@@ -348,6 +348,12 @@
         "from_button_id": "button.menu_ok",
         "to_button_id": "button.menu_ok",
         "mapping_type": "focused"
+      },
+      {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "button.controller_back",
+        "mapping_type": "focused",
+        "ignored": "(not $allow_controller_back_button_mapping)"
       },
       {
         "ignored": "(not $enable_directional_toggling)",

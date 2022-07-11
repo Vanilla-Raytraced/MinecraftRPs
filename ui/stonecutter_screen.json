@@ -181,6 +181,12 @@
         "mapping_type": "pressed"
       },
       {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "button.stone_select",
+        "mapping_type": "pressed",
+        "ignored": "(not $is_ps4)"
+      },
+      {
         "from_button_id": "button.menu_secondary_select",
         "to_button_id": "button.stone_select",
         "mapping_type": "pressed"
@@ -357,13 +363,19 @@
         "mapping_type": "pressed"
       },
       {
-        "from_button_id": "button.menu_secondary_select",
+        "from_button_id": "button.controller_back",
         "to_button_id": "button.stonecutter_result_take_all_place_all",
+        "mapping_type": "pressed",
+        "ignored": "(not $is_ps4)"
+      },
+      {
+        "from_button_id": "button.menu_secondary_select",
+        "to_button_id": "button.stonecutter_result_take_half_place_one",
         "mapping_type": "pressed"
       },
       {
         "from_button_id": "button.controller_select",
-        "to_button_id": "button.stonecutter_result_take_all_place_all",
+        "to_button_id": "button.stonecutter_result_take_half_place_one",
         "mapping_type": "pressed"
       },
       {
@@ -734,6 +746,12 @@
             "mapping_type": "pressed"
           },
           {
+            "from_button_id": "button.controller_back",
+            "to_button_id": "button.cursor_drop_all",
+            "mapping_type": "pressed",
+            "ignored": "(not $is_ps4)"
+          },
+          {
             "from_button_id": "button.controller_select",
             "to_button_id": "button.cursor_drop_one",
             "mapping_type": "pressed"
@@ -826,6 +844,12 @@
         "from_button_id": "button.menu_ok",
         "to_button_id": "button.cursor_drop_all",
         "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "button.cursor_drop_all",
+        "mapping_type": "pressed",
+        "ignored": "(not $is_ps4)"
       },
       {
         "from_button_id": "button.controller_select",

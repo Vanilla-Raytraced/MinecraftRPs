@@ -5,7 +5,7 @@
   // Common
   //---------------------------------------------------------------------------
 
-  "inventory_x_gamepad_helper@common.gamepad_helper_x": {
+  "inventory_x_gamepad_helper@common.gamepad_helper_x_14": {
     "bindings": [
       {
         "binding_name": "#gamepad_helper_x_visible",
@@ -15,7 +15,7 @@
     ]
   },
 
-  "inventory_y_gamepad_helper@common.gamepad_helper_y": {
+  "inventory_y_gamepad_helper@common.gamepad_helper_y_14": {
     "bindings": [
       {
         "binding_name": "#gamepad_helper_y_visible",
@@ -25,7 +25,7 @@
     ]
   },
 
-  "inventory_a_gamepad_helper@common.gamepad_helper_a": {
+  "inventory_a_gamepad_helper@common.gamepad_helper_a_14": {
     "bindings": [
       {
         "binding_name": "#gamepad_helper_a_visible",
@@ -34,6 +34,8 @@
       }
     ]
   },
+
+  "inventory_b_gamepad_helper@common.gamepad_helper_b_14": {},
 
   "gamepad_helper_bumpers": {
     "type": "panel",
@@ -154,6 +156,12 @@
         "mapping_type": "pressed"
       },
       {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "button.destroy_selection",
+        "mapping_type": "pressed",
+        "ignored": "(not $is_ps4)"
+      },
+      {
         "from_button_id": "button.controller_select",
         "to_button_id": "button.clear_hotbar_or_remove_one",
         "mapping_type": "pressed"
@@ -183,6 +191,12 @@
         "from_button_id": "button.menu_ok",
         "to_button_id": "button.cursor_drop_all",
         "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "button.cursor_drop_all",
+        "mapping_type": "pressed",
+        "ignored": "(not $is_ps4)"
       },
       {
         "from_button_id": "button.controller_select",
@@ -222,6 +236,12 @@
         "from_button_id": "button.menu_ok",
         "to_button_id": "$button_take_all_place_all",
         "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "$button_take_all_place_all",
+        "mapping_type": "pressed",
+        "ignored": "(not $is_ps4)"
       },
       {
         "from_button_id": "button.menu_secondary_select",
@@ -294,6 +314,12 @@
         "from_button_id": "button.menu_ok",
         "to_button_id": "$button_take_all_place_all",
         "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "$button_take_all_place_all",
+        "mapping_type": "pressed",
+        "ignored": "(not $is_ps4)"
       },
       {
         "from_button_id": "button.menu_secondary_select",
@@ -434,7 +460,8 @@
     "$toggle_focus_enabled": false,
     "$toggle_name": "navigation_tab",
     "$toggle_group_default_selected": "$construction_index", //Construction tab
-    "$tab_content": "crafting.empty_tab_panel"
+    "$tab_content": "crafting.empty_tab_panel",
+    "$allow_controller_back_button_mapping": "$is_ps4"
   },
 
   "search_tab@crafting.top_tab": {
@@ -1302,7 +1329,7 @@
 
   "crafting_grid_2x2_with_label": {
     "type": "panel",
-    "size": [ 36, 47 ],
+    "size": [ "default", 47 ],
     "anchor_from": "top_middle",
     "anchor_to": "top_middle",
     "controls": [
@@ -1357,8 +1384,8 @@
         }
       },
       {
-        "crafting_grid_2x2@crafting.crafting_grid_2x2": {
-          "offset": [ 8, 17 ]
+        "crafting_grid_2x2@crafting.crafting_grid_2x2_with_label": {
+          "offset": [ 8, 7 ]
         }
       },
       {
@@ -1878,6 +1905,12 @@
         "mapping_type": "pressed"
       },
       {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "button.destroy_selection",
+        "mapping_type": "pressed",
+        "ignored": "(not $is_ps4)"
+      },
+      {
         "from_button_id": "button.controller_select",
         "to_button_id": "button.clear_hotbar_or_remove_one",
         "mapping_type": "pressed"
@@ -1947,6 +1980,12 @@
         "mapping_type": "focused"
       },
       {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "button.controller_back",
+        "mapping_type": "focused",
+        "ignored": "(not $is_ps4)"
+      },
+      {
         "ignored": "(not $enable_directional_toggling)",
         "from_button_id": "button.menu_left",
         "to_button_id": "$toggle_off_button",
@@ -2002,7 +2041,8 @@
     "$button_content": "crafting.layout_toggle_content",
     "$toggle_name": "layout_toggle",
 
-    "$template_toggle": "crafting.layout_template_toggle"
+    "$template_toggle": "crafting.layout_template_toggle",
+    "$allow_controller_back_button_mapping": "$is_ps4"
   },
 
   "creative_layout_toggle@crafting.layout_toggle": {
@@ -2466,6 +2506,12 @@
         "from_button_id": "button.menu_ok",
         "to_button_id": "button.cursor_drop_all",
         "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "button.cursor_drop_all",
+        "mapping_type": "pressed",
+        "ignored": "(not $is_ps4)"
       },
       {
         "from_button_id": "button.controller_select",
